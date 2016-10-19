@@ -1,7 +1,10 @@
 <div>
-    <h3 class="text-center">header View</h3>
-    <div class="pull-right">
-        <span ng-if="user"><button class="btn btn-sm btn-primary" ng-click="logout()">logout</button></span>
-        <span ng-if="!user"><button class="btn btn-sm btn-primary" ng-click="login()">login</button></span>
-    </div>
+    <h3 class="text-center">header View
+      <small>
+        <div class="pull-right">
+            <span ng-if="user.user"><button class="btn btn-sm btn-primary" ng-click="user.logout()">logout</button></span>
+            <span ng-if="!user.user"><button class="btn btn-sm btn-primary" ng-click="user.login()">login</button></span>
+        </div>
+      </small>
+    </h3>
 </div>
