@@ -39,6 +39,14 @@ angular.module('demoApp')
                     }
                 }
             })
+            .state('root.directives', {
+                url: '/directives',
+                views: {
+                    'content@': {
+                        templateUrl: 'partials/directivesIndetail.html'
+                    }
+                }
+            })
             .state('root.bankApp', {
                 url: '/bankApp',
                 views: {
