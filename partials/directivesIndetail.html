@@ -1,0 +1,158 @@
+<h3>Overview</h3>
+<p>A directive is something that introduces new syntax. Directives are markers on a DOM element which attach a special behavior to it. For example, static HTML does not know how to create and display a date picker widget. To teach HTML this new syntax we
+    need a directive. The directive will somehow create an element that behaves like a date picker. We will see how this is achieved subsequently. </p>
+<p>If you’ve written an Angular application before, then you have used directives, whether you realized it or not. You might have used simple directives like <code class=" language-undefined">ng-model</code>,<code class=" language-undefined">ng-repeat</code>,
+    <code class=" language-undefined">ng-show</code>, etc. All these directives attach special behavior to DOM elements. For example, <code class=" language-undefined">ng-repeat</code> repeats a specific element and <code class=" language-undefined">ng-show</code>    conditionally shows an element. If you want to make an element draggable/droppable you might create a directive for that too. The basic idea behind directive is very simple. It makes your HTML truly interactive by attaching event listeners to the
+    elements and/or transforming the DOM.</p>
+<h3>The jQuery Perspective</h3>
+<p>Just imagine how you create a date picker with jQuery. We first add a normal input field to the HTML and then in jQuery we call <code class=" language-undefined">$(element).datePicker()</code> to actually convert it to a date picker. But, think about
+    it. When a designer comes and examines the markup, can he/she immediately guess what the field actually is? Is it just a plain input field or a date picker? You have to look into the jQuery code to be sure. The Angular approach is to use a directive
+    to extend HTML. So, a directive for a date picker can look like this:</p>
+<pre class=" language-markup"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>date-picker</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>date-picker</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p>Or it could look like this:</p>
+<pre class=" language-markup"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">date-picker</span><span class="token punctuation">/&gt;</span></span></code></pre>
+<p>This approach to creating UI components is intuitive and clear. You can simply look at the element to know what it is supposed to be! </p>
+<h3>Building Custom Directives:</h3>
+<p>An Angular directive comes in four flavors in terms of appearance.</p>
+<ol>
+
+
+    <li>A new HTML element (<code class=" language-undefined">&lt;date-picker&gt;&lt;/date&gt;</code>).</li>
+    <li>An attribute on an element (<code class=" language-undefined">&lt;input type="text" date-picker/&gt;</code>).</li>
+    <li>As a class (<code class=" language-undefined">&lt;input type="text" class="date-picker"/&gt;</code>).</li>
+    <li>As comment (<code class=" language-undefined">&lt;!--directive:date-picker--&gt;</code>).</li>
+</ol>
+<p>Of course, we have control over how our directive will appear in the HTML. Now, let’s see how a typical directive is written in Angular. It is registered in the same way as a <code class=" language-undefined">controller</code>, but it returns a simple
+    object (directive definition) that has several properties to configure the directive. The following code shows a simple Hello World directive.</p>
+<pre class=" language-javascript"><code class=" language-javascript"><span class="token keyword">var</span> app <span class="token operator">=</span> angular<span class="token punctuation">.</span><span class="token function">module</span><span class="token punctuation">(</span><span class="token string">'myapp'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token function">directive</span><span class="token punctuation">(</span><span class="token string">'helloWorld'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      restrict<span class="token punctuation">:</span> <span class="token string">'AE'</span><span class="token punctuation">,</span>
+      replace<span class="token punctuation">:</span> <span class="token string">'true'</span><span class="token punctuation">,</span>
+      template<span class="token punctuation">:</span> <span class="token string">'&lt;h3&gt;Hello World!!&lt;/h3&gt;'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>In the previous code, the <code class=" language-undefined">app.directive()</code> function registers a new directive in our module. The first argument to this function is the directive name. The second argument is a function which returns a directive
+    definition object. If your directive has dependencies on external objects/services such as <code class=" language-undefined">$rootScope</code>, <code class=" language-undefined">$http</code>, or <code class=" language-undefined">$compile</code>, they
+    can be injected here. The directive can be used in HTML as an element like this:</p>
+<pre class=" language-markup"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>hello-world</span><span class="token punctuation">/&gt;</span></span></code></pre>
+<p>Or:</p>
+<pre class=" language-markup"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">hello:</span>world</span><span class="token punctuation">/&gt;</span></span></code></pre>
+<p>Or, as an attribute like this:</p>
+<pre class=" language-markup"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">hello-world</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p>Or:</p>
+<pre class=" language-markup"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name"><span class="token namespace">hello:</span>world</span><span class="token punctuation">/&gt;</span></span></code></pre>
+<p>If you want to be HTML5 compliant, you can prefix the attribute name with <code class=" language-undefined">x-</code> or <code class=" language-undefined">data-</code>. So, the following markups will match <code class=" language-undefined">helloWorld</code>    directive.</p>
+<pre class=" language-markup"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-hello-world</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
+OR
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">x-hello-world</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p><strong>Note:</strong> </p>
+<p>While matching directives, Angular strips the prefix <code class=" language-undefined">x-</code> or <code class=" language-undefined">data-</code> from element/attribute names. Then it converts <code class=" language-undefined">-</code> or <code class=" language-undefined">:</code>    delimited strings to camelCase and matches with the registered directives. That’s why we have used the <code class=" language-undefined">helloWorld</code> directive as <code class=" language-undefined">hello-world</code> in the HTML. </p>
+<p>Though the above directive does nothing more than show static text, we have some interesting points to explore. We have used three properties in the directive definition object to configure the directive. Let’s explore the role that each one plays.</p>
+<ul>
+    <li><code class=" language-undefined">restrict</code> – This provides a way to specify how a directive should be used in HTML (remember a directive can appear in four ways). In this case we have set it to <code class=" language-undefined">'AE'</code>.
+        So, the directive can be used as a new HTML element or an attribute. To allow this directive to be used as a class we can set <code class=" language-undefined">restrict</code> to <code class=" language-undefined">'AEC'</code>. </li>
+    <li><code class=" language-undefined">template</code> – This specifies the HTML markup that will be produced when the directive is compiled and linked by Angular. This does not have to be a simple string. The <code class=" language-undefined">template</code>        can be complex, often involving other directives, expressions (<code class=" language-undefined">{{ }}</code>), etc. In most cases you want to use <code class=" language-undefined">templateUrl</code> instead of <code class=" language-undefined">template</code>.
+        So, ideally you should place the template in a separate HTML file and make <code class=" language-undefined">templateUrl</code> point to it.</li>
+    <li><code class=" language-undefined">replace</code> – This specifies if the generated template will replace the HTML element on which the directive is attached. In our case we have used the directive as <code class=" language-undefined">&lt;hello-world&gt;&lt;/hello-world&gt;</code>,
+        and <code class=" language-undefined">replace</code> is set to <code class=" language-undefined">true</code>. So, after the directive is compiled, the produced output template replaces <code class=" language-undefined">&lt;hello-world&gt;&lt;/hello-world&gt;</code>.
+        The final output is <code class=" language-undefined">&lt;h3&gt;Hello World!!&lt;/h3&gt;</code>. If you set <code class=" language-undefined">replace</code> to <code class=" language-undefined">false</code>, the default, the output template will
+        be inserted into the element on which the directive is invoked. </li>
+</ul>
+<p>Open up this <a href="http://plnkr.co/edit/GKI339z2VDdZTOE2bGFP">plunker</a>, right click on “Hello World!!”, and do an inspect element to visualize things. </p>
+<h3>The <code class=" language-undefined">link</code> Function and Scope</h3>
+<p>The template produced by a directive is meaningless unless it’s compiled against the right scope. By default a directive does not get a new child scope. Rather, it gets the parent’s scope. This means that if the directive is present inside a controller
+    it will use that controller’s scope. </p>
+<p>To utilize the scope, we can make use of a function called <code class=" language-undefined">link</code>. This is configured by the <code class=" language-undefined">link</code> property of the definition object. Let’s change our <code class=" language-undefined">helloWorld</code>    directive so that when the user types a color name into an input field, the background color of Hello World text changes automatically. Also, when a user clicks on the text Hello World, the background color should reset to white. The HTML markup is
+    shown below.</p>
+<pre class=" language-markup"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span> <span class="token attr-name">ng-controller</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>MainCtrl<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>color<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Enter a color<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>hello-world</span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p>The modified <code class=" language-undefined">helloWorld</code> directive is shown below:</p>
+<pre class=" language-javascript"><code class=" language-javascript">app<span class="token punctuation">.</span><span class="token function">directive</span><span class="token punctuation">(</span><span class="token string">'helloWorld'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    restrict<span class="token punctuation">:</span> <span class="token string">'AE'</span><span class="token punctuation">,</span>
+    replace<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    template<span class="token punctuation">:</span> <span class="token string">'&lt;p style="background-color:{{color}}"&gt;Hello World'</span><span class="token punctuation">,</span>
+    link<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>scope<span class="token punctuation">,</span> elem<span class="token punctuation">,</span> attrs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      elem<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        elem<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'background-color'</span><span class="token punctuation">,</span> <span class="token string">'white'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        scope<span class="token punctuation">.</span><span class="token function">$apply</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          scope<span class="token punctuation">.</span>color <span class="token operator">=</span> <span class="token string">"white"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      elem<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">'mouseover'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        elem<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'cursor'</span><span class="token punctuation">,</span> <span class="token string">'pointer'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Notice the <code class=" language-undefined">link</code> function used in the directive. It takes three arguments:</p>
+<ul>
+    <li><code class=" language-undefined">scope</code> – The scope passed to the directive. In this case it’s the same as the parent controller scope.</li>
+    <li><code class=" language-undefined">elem</code> – The jQLite (a subset of jQuery) wrapped element on which the directive is applied. If you have included jQuery in the HTML before AngularJS is included, this becomes jQuery wrapped instead of jQLite.
+        As the element is already wrapped with jQuery/jQLite, there is no need to again wrap it inside <code class=" language-undefined">$()</code> for DOM manipulations. </li>
+    <li><code class=" language-undefined">attrs</code> – An object representing normalized attributes attached to the element on which the directive is applied. For example, you can attach attributes in HTML like: <code class=" language-undefined">&lt;hello-world some-attribute&gt;&lt;/hello-world&gt;</code>        and access it in the <code class=" language-undefined">link</code> function as <code class=" language-undefined">attrs.someAttribute</code>.</li>
+</ul>
+<p>The <code class=" language-undefined">link</code> function is mainly used for attaching event listeners to DOM elements, watching model properties for changes, and updating the DOM. In the previous directive snippet, we attached two listeners, <code class=" language-undefined">click</code>    and <code class=" language-undefined">mouseover</code>. The <code class=" language-undefined">click</code> handler resets the background color of the <code class=" language-undefined">&lt;p&gt;</code>, while the <code class=" language-undefined">mouseover</code>    handler changes the cursor to <code class=" language-undefined">pointer</code>. The template has an expression <code class=" language-undefined">{{color}}</code> which changes whenever the model <code class=" language-undefined">color</code> changes
+    in the parent scope, thereby changing the background color of Hello World. Here is a <a href="http://plnkr.co/edit/14q6WxHyhWuVxEIqwww1">plunker</a> demonstrating this concept.</p>
+<h3>The <code class=" language-undefined">compile</code> Function</h3>
+<p>The <code class=" language-undefined">compile</code> function is used to perform any DOM transformation before the <code class=" language-undefined">link</code> function runs. It accepts the following arguments.</p>
+<ul>
+    <li><code class=" language-undefined">tElement</code> – The element on which the directive is applied.</li>
+    <li><code class=" language-undefined">attrs</code> – The normalized list of attributes declared on the element.</li>
+</ul>
+<p>Just note that the <code class=" language-undefined">compile</code> function does not have access to the <code class=" language-undefined">scope</code>, and must return a <code class=" language-undefined">link</code> function. But, if there is no
+    <code class=" language-undefined">compile</code> function you can configure the <code class=" language-undefined">link</code> function as usual. The <code class=" language-undefined">compile</code> function can be written as:</p>
+<pre class=" language-javascript"><code class=" language-javascript">app<span class="token punctuation">.</span><span class="token function">directive</span><span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    compile<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>tElem<span class="token punctuation">,</span>attrs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">//do optional DOM transformation here</span>
+      <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span>scope<span class="token punctuation">,</span>elem<span class="token punctuation">,</span>attrs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//linking function here</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Most of the time, you will be working with the <code class=" language-undefined">link</code> function only. This is because most of the directives are concerned with registering event listeners, watchers, updating the DOM, etc., which are done inside
+    the <code class=" language-undefined">link</code> function. Directives like <code class=" language-undefined">ng-repeat</code>, which need to clone and repeat the DOM element several times, use the <code class=" language-undefined">compile</code>    function before the <code class=" language-undefined">link</code> function runs. This leads to a question of why two separate functions are needed. Why can’t we have just one? To answer this we need to understand how directives are compiled by Angular!</p>
+<h3>How Directives are Compiled</h3>
+<p>When the application bootstraps, Angular starts parsing the DOM using the <code class=" language-undefined">$compile</code> service. This service searches for directives in the markup and matches them against registered directives. Once all the directives
+    have been identified, Angular executes their <code class=" language-undefined">compile</code> functions. As previously mentioned, the <code class=" language-undefined">compile</code> function returns a <code class=" language-undefined">link</code>    function which is added to the list of <code class=" language-undefined">link</code> functions to be executed later. This is called the compile phase. If a directive needs to be cloned multiple times (e.g. <code class=" language-undefined">ng-repeat</code>),
+    we get a performance benefit as the <code class=" language-undefined">compile</code> function runs once for the cloned template, but the <code class=" language-undefined">link</code> function runs for each cloned instance. That’s why the <code class=" language-undefined">compile</code>    function does not receive a scope. </p>
+<p>After the compile phase is over the linking phase, where the collected <code class=" language-undefined">link</code> functions are executed one by one, starts. This is where the templates produced by the directives are evaluated against correct scope
+    and are turned into live DOM which react to events!</p>
+<h3>Changing a Directive’s Scope</h3>
+<p>By default a directive gets the parent’s scope. But we don’t want that in all cases. If we are exposing the parent controller’s <code class=" language-undefined">scope</code> to the directives, they are free to modify the <code class=" language-undefined">scope</code>    properties. In some cases your directive may want to add several properties and functions to the scope that are for internal use only. If we are doing these things to parent’s scope, we are polluting it. So, we have two other options:</p>
+<ul>
+    <li>A child scope – This scope prototypically inherits the parent’s scope.</li>
+    <li>An isolated scope – A new scope that does not inherit from the parent and exists on its own.</li>
+</ul>
+<p>The scope can be configured with the <code class=" language-undefined">scope</code> property of the directive definition object. An example of this is shown in the following snippet.</p>
+<pre class=" language-javascript"><code class=" language-javascript">app<span class="token punctuation">.</span><span class="token function">directive</span><span class="token punctuation">(</span><span class="token string">'helloWorld'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    scope<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// use a child scope that inherits from parent</span>
+    restrict<span class="token punctuation">:</span> <span class="token string">'AE'</span><span class="token punctuation">,</span>
+    replace<span class="token punctuation">:</span> <span class="token string">'true'</span><span class="token punctuation">,</span>
+    template<span class="token punctuation">:</span> <span class="token string">'&lt;h3&gt;Hello World!!&lt;/h3&gt;'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>The above code asks Angular to give the directive a new child scope that prototypically inherits from parent scope. The other option, an isolated scope, is shown below.</p>
+<pre class=" language-javascript"><code class=" language-javascript">app<span class="token punctuation">.</span><span class="token function">directive</span><span class="token punctuation">(</span><span class="token string">'helloWorld'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    scope<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// use a new isolated scope</span>
+    restrict<span class="token punctuation">:</span> <span class="token string">'AE'</span><span class="token punctuation">,</span>
+    replace<span class="token punctuation">:</span> <span class="token string">'true'</span><span class="token punctuation">,</span>
+    template<span class="token punctuation">:</span> <span class="token string">'&lt;h3&gt;Hello World!!&lt;/h3&gt;'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>This directive uses a new isolated scope that does not inherit from the parent. Isolated scopes are good when we want to create reusable components. By isolating the scope we guarantee that the directive is self contained and can be easily plugged into
+    an HTML app. This provides the parent scope from becoming polluted, as it is not accessible inside the directive. In our modified <code class=" language-undefined">helloWorld</code> directive if you set <code class=" language-undefined">scope</code>    to <code class=" language-undefined">{}</code> the code won’t work anymore. It will create an isolated scope for the directive and the expression <code class=" language-undefined">{{color}}</code> will now refer to that isolated scope property (not
+    parent scope) which is <code class=" language-undefined">undefined</code>. </p>
+<p>Isolating the scope does not mean that you have no access to the parent scope’s properties. There are techniques that allow you to access the parent scope’s properties and also watch for changes on them. We will discuss these techniques, and some more
+    advanced concepts like <code class=" language-undefined">Controller</code> functions in part two of this series. Part two will also walk you through the creation of a fully fledged note taking app using Angular directives, so stay tuned!</p>
+</div>
