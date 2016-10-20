@@ -39,6 +39,16 @@ angular.module('demoApp')
                     }
                 }
             })
+            .state('root.bankApp', {
+                url: '/bankApp',
+                views: {
+                    'content@': {
+                        templateUrl: 'partials/bank.html',
+                        controller: 'AccountController',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
             .state('root.restricted', {
                 url: '/restricted',
                 resolve: {
