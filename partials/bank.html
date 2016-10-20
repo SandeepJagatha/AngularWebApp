@@ -1,0 +1,36 @@
+<div class="container" ng-controller="AccountController as aController">
+  <div class="header clearfix">
+       <nav>
+           <ul class="nav nav-pills pull-right">
+               <li role="presentation">
+                   <span>Current Balance: {{ aController.accountBalance | currency }}</span>
+               </li>
+           </ul>
+       </nav>
+       <h3 class="text-muted">Account Controller</h3>
+       <h5>dispatches event <b>WithdrawalNotAllowed</b> downwards to Child Controllers using <b>$broadcast</b></h5>
+  </div>
+  <div class="row">
+     <div class="col-lg-12" ng-controller="DepositController as dController">
+        <h3>Deposit Controller</h3>
+        <h5>dispatches event <b>AmountDeposited</b> upwards to AccountController using <b>$emit</b></h5>
+        <p>
+           <input type="text" class="form-control" ng-model="dController.amount" />
+        </p>
+        <p>
+           <input type="button" class="btn btn-primary btn-sm" value="Deposit" ng-click="dController.deposit()" />
+        </p>
+    </div>
+    <div class="col-lg-12" ng-controller="WithdrawController as wController">
+       <h3>Withdraw Controller</h3>
+       <h5>dispatches event <b>AmountWithdrawn</b> upwards to AccountController using <b>$emit</b></h5>
+       <p>
+          <input type="text"  class="form-control" ng-model="wController.amount" />
+          <span class="error" ng-if="wController.validationError">{{vm.validationError}}</span>
+       </p>
+       <p>
+          <input type="button" class="btn btn-primary btn-sm" value="Withdraw" ng-click="wController.withdraw()" />
+       </p>
+    </div>
+  </div>
+</div>
