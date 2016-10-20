@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/angular-material.css">
 </head>
 <style>
     body {
@@ -19,7 +20,7 @@
 </style>
 
 <body>
-    <div class="container" ng-app="demoApp">
+    <div class="container-fluid" ng-app="demoApp">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -34,28 +35,32 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a ui-sref="root.home" ui-sref-active="active">Hello</a></li>
+                            <a ui-sref="root.home" ui-sref-active="active">Home</a></li>
                         <li>
-                            <a ui-sref="root.about" ui-sref-active="active">About</a></li>
+                            <a ui-sref="root.about" ui-sref-active="active">How it works</a></li>
                         <li>
-                            <a ui-sref="root.restricted" href="#">restricted page</a></li>
+                            <a ui-sref="root.restricted" href="#">Dashboard</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-
-        <div ui-view>
-            <div ui-view="header"></div>
-            <div ui-view="content"></div>
-            <div ui-view="footer"></div>
+        <div class="container">
+            <div ui-view>
+                <div ui-view="header"></div>
+                <div ui-view="content"></div>
+                <div ui-view="footer"></div>
+            </div>
         </div>
 
     </div>
 </body>
 
 
-<script src="lib/angular/angular.min.js"></script>
+<script src="lib/angular/angular.js"></script>
 <script src="lib/angular/angular-ui-router.min.js"></script>
+<script src="lib/angular/angular-animate.min.js"></script>
+<script src="lib/angular/angular-aria.js"></script>
+<script src="lib/angular/angular-material.js"></script>
 <!--  -->
 
 <script src="js/app.js"></script>

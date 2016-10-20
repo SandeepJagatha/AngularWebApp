@@ -1,9 +1,30 @@
-<div>
-    <h2 class="text-center">Login</h2>
+<h2 class="page-header">Login</h2>
+<div layout="column" ng-cloak class="md-inline-form">
+    <div layout="row">
+        <div flex>
+            <md-content class="md-no-momentum" layout-padding layout-align="center center">
+                <md-input-container class="md-icon-float md-block">
+                    <!-- Use floating label instead of placeholder -->
+                    <label>User name</label>
+                    <!--            <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>-->
+                    <input ng-model="userCred.username" type="text">
+                </md-input-container>
 
-    <label>Username</label>
-    <input ng-model="userCred.username" />
-    <label>Password</label>
-    <input type="password" ng-model="userCred.password" />
-    <button class="btn btn-sm btn-warning" ng-click="login.login(userCred)">login</button>
+                <md-input-container class="md-icon-float md-block">
+                    <label>Password</label>
+                    <!--            <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>-->
+                    <input ng-model="userCred.password" type="password">
+                </md-input-container>
+            </md-content>
+
+            <div>
+                <!--                <md-button type="submit">Submit</md-button>-->
+                <md-button class="md-fab md-primary" aria-label="Login" ng-click="login.login(userCred)">
+                    Login
+                </md-button>
+            </div>
+        </div>
+
+        <div flex></div>
+    </div>
 </div>
