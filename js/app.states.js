@@ -52,8 +52,7 @@ angular.module('demoApp')
                 views: {
                     'content@': {
                         templateUrl: 'partials/bank.html',
-                        controller: 'AccountController',
-                        controllerAs: 'vm'
+                        controller: 'AccountController'
                     }
                 }
             })
