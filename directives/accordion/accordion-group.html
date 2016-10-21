@@ -1,0 +1,23 @@
+<div class="panel">
+	<div class="panel-heading">
+		<h3 class="panel-title heading-link" ng-click="$event.preventDefault(); toggleOpen()">
+		    <div accordion-transclude="heading">
+				<a class="collapsed" ng-class="{'panel-toggle' : !externalLink, 'panel-link' : externalLink}" role="tab"
+					id="heading-panel-account-selections" aria-expanded="true"
+					aria-controls="panel-account-selections">
+					<span ng-class="{'text-muted': isDisabled}" ng-bind-html="heading"></span></a>
+            </div>
+			<a class="collapsed  heading-link-icon" ng-class="{'panel-toggle' : !externalLink, 'panel-link' : externalLink}" role="tab"
+				id="heading-panel-account-selections" aria-expanded="true"
+				aria-controls="panel-account-selections">
+				<span class="pull-right"><i aria-hidden="true" class="fa " ng-class="{'fa-minus-circle': (isOpen && !externalLink), 'fa-plus-circle': (!isOpen && !externalLink), 'icon-external-link' : externalLink}"></i></span>
+				<p ng-if="description">{{description}}</p>
+			</a>
+		</h3>
+
+	</div>
+	<div id="panel-account-selections" class="panel-collapse collapse"
+		collapse="!isOpen" role="tabpanel"
+		aria-labelledby="heading-panel-account-selections" ng-transclude>
+	</div>
+</div>
