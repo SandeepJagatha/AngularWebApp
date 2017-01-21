@@ -5,9 +5,21 @@ This is the basic Angularjs web application!!
 
 
 
-# Angularjs Notes:
 
-## AngularJS Core Feature:
+
+
+
+
+
+
+
+
+
+
+
+## Angularjs Notes:
+
+### AngularJS Core Feature:
 
  - Directives 
  - Data binding
